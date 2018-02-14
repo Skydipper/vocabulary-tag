@@ -63,7 +63,7 @@ class RelationshipService {
 
     static async createSome(application, user, vocabularies, dataset, pResource) {
         for (let i = 0; i < vocabularies.length; i++) {
-            await RelationshipService.create(user, vocabularies[i], dataset, pResource);
+            await RelationshipService.create(application, user, vocabularies[i], dataset, pResource);
         }
         return await ResourceService.get(dataset, pResource);
     }
@@ -103,9 +103,9 @@ class RelationshipService {
         return resource;
     }
 
-    static async deleteSome(user, vocabularies, dataset, pResource) {
+    static async deleteSome(application, user, vocabularies, dataset, pResource) {
         for (let i = 0; i < vocabularies.length; i++) {
-            await RelationshipService.delete(user, vocabularies[i], dataset, pResource);
+            await RelationshipService.delete(application, user, vocabularies[i], dataset, pResource);
         }
         return await ResourceService.get(dataset, pResource);
     }
@@ -123,7 +123,7 @@ class RelationshipService {
             };
         });
         for (let i = 0; i < vocabularies.length; i++) {
-            await RelationshipService.delete(user, vocabularies[i], dataset, pResource);
+            await RelationshipService.delete(application, user, vocabularies[i], dataset, pResource);
         }
         return await ResourceService.get(dataset, pResource);
     }
@@ -195,12 +195,12 @@ class RelationshipService {
             return await RelationshipService.create(application, user, pVocabulary, dataset, pResource);
         }
         try {
-            body.tags.forEach((el) => {
+            pVocabulary.tags.forEach((el) => {
                 if (relationship.tags.indexOf(el) < 0) {
                     relationship.tags.push(el);
                 }
             });
-            return await RelationshipService.updateTagsFromRelationship(user, pVocabulary, dataset, pResource, relationship);
+            return await RelationshipService.updateTagsFromRelationship(application, user, pVocabulary, dataset, pResource);
         } catch (err) {
             throw err;
         }
@@ -220,7 +220,7 @@ class RelationshipService {
         });
         logger.debug('New Vocabularies', vocabularies);
         try {
-            return await RelationshipService.createSome(user, vocabularies, body.newDataset, { type: 'dataset', id: body.newDataset });
+            return await RelationshipService.createSome(application, user, vocabularies, body.newDataset, { type: 'dataset', id: body.newDataset });
         } catch (err) {
             throw err;
         }

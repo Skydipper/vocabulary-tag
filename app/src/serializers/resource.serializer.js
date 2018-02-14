@@ -16,8 +16,7 @@ class ResourceSerializer {
                         id: vocabulary.id,
                         type: 'vocabulary',
                         attributes: {
-                            tags: vocabulary.tags,
-                            name: vocabulary.id
+                            tags: vocabulary.tags
                         }
                     });
                 });
@@ -44,8 +43,7 @@ class ResourceSerializer {
                                 id: el.id,
                                 type: el.type
                             },
-                            tags: vocabulary.tags,
-                            name: vocabulary.id
+                            tags: vocabulary.tags
                         }
                     });
                 });

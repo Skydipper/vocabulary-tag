@@ -346,6 +346,7 @@ const relationshipAuthorizationMiddleware = async (ctx, next) => {
                 return;
             }
         } catch (err) {
+            logger.error(err);
             ctx.throw(403, 'Forbidden');
             return;
         }
